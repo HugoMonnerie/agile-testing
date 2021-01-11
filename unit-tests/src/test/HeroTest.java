@@ -7,9 +7,12 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.lessThan;
+
 import static org.hamcrest.Matchers.*;
 
 import codingfactory.rpgconsole.hero.Hero;
+import codingfactory.rpgconsole.enemy.Enemy;
 
 public class HeroTest {
 
@@ -27,7 +30,7 @@ public class HeroTest {
 
 	@Before
 	public void setUp() throws Exception {
-		hero = new Hero("Jaina Portvaillant");
+		hero = new Hero("Revali & Daruk");
 		System.out.println("Avant un test");
 	}
 
@@ -36,15 +39,44 @@ public class HeroTest {
 		System.out.println("Après un test");
 	}
 
+	/*
+	@Test
+	public void testSetLevel() throws Exception {
+		hero.setLevel(7);
+		assertThat(hero, hasProperty("level", is(7)));
+	}
+	 */
+
 	@Test
 	public void testHeroLevelUp() throws Exception {
-		// TODO
+		int oldvalue = hero.getLevel();
+		hero.levelUp();
+		assertThat(hero, hasProperty("level", is(oldvalue + 1)));
+	}
+
+	@Test
+	public void testTakeDamage()throws Exception {
+		int oldHp = hero.getHp();
+		hero.takeDamage(10);
+		assertThat(hero, hasProperty("hp", is(oldHp - 10)));
 	}
 
 	@Test
 	public void testHeroProperties() throws Exception {
-		assertThat(hero, hasProperty("name"));
-        assertThat(hero, hasProperty("name", is("Jaina Portvaillant")));
+		//assertThat(hero, hasProperty("name"));
+        assertThat(hero, hasProperty("name", is("Revali & Daruk")));
+		assertThat(hero, hasProperty("level", is(1)));
+		assertThat(hero, hasProperty("hp", is(20)));
+		assertThat(hero, hasProperty("atk", is(2)));
+	}
+
+	@Test
+	public void testAttack() throws Exception {
+		Enemy enemy = new Enemy("Lynel Doré", 15);
+		int oldHp = enemy.getHp();
+		hero.attack(enemy);
+		int newHp = enemy.getHp();
+		assertThat(3, is(lessThan(2)));
 	}
 
 }
