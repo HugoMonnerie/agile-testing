@@ -12,28 +12,36 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 public class FunctionalTest {
 
-	private WebDriver driver;
+    private WebDriver driver;
 
     @Before
     public void setUp() throws Exception {
-        System.setProperty("webdriver.chrome.driver","/Library/Java/JUNIT/chromedriver");
-		driver = new ChromeDriver();
-	    	// Seems no more working in last Chrome versions
-		// driver.manage().window().maximize();
-  		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-     }
+        System.setProperty("webdriver.chrome.driver", "/Library/Java/JUNIT/chromedriver");
+        driver = new ChromeDriver();
+        // Seems no more working in last Chrome versions
+        // driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+    }
 
     // Test de la Story #1-homepage (https://trello.com/c/WKTneu9o/1-homepage)
-	@Test
+    @Test
     public void testHomepage() throws Exception {
         driver.get("https://www.meetup.com/fr-FR/");
-		assertEquals(driver.getTitle(), "Partagez vos passions | Meetup");
-		// TODO
-		// To Be Completed By Coders From Coding Factory
+        assertEquals(driver.getTitle(), "Partagez vos passions | Meetup");
+
+        WebElement h1 = driver.findElement(By.tagName("h1"));
+        assertEquals(h1.getText(), "Le monde vous tend les bras");
+
+        
+        assertEquals(.get(), "Rejoignez un groupe local pour rencontrer du monde, tester une nouvelle activité ou partager vos passions.");
+        // TODO
+        // To Be Completed By Coders From Coding Factory
     }
 
     // Test de la Story n ...
