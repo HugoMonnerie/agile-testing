@@ -1,6 +1,7 @@
 package codingfactory.rpgconsole.enemy;
 
 import codingfactory.rpgconsole.hero.Hero;
+
 import java.util.Random;
 
 public class Enemy {
@@ -23,6 +24,14 @@ public class Enemy {
 
     public Integer getHp(){
         return this.hp;
+    }
+
+    public Integer getLevel(){
+        return this.level;
+    }
+
+    public Integer getAtk(){
+        return this.atk;
     }
 
     public void takeDamage(Integer damage){

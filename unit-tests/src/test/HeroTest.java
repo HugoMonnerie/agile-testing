@@ -49,13 +49,14 @@ public class HeroTest {
 
 	@Test
 	public void testHeroLevelUp() throws Exception {
+		System.out.println("Avant le démarrage");
 		int oldvalue = hero.getLevel();
 		hero.levelUp();
 		assertThat(hero, hasProperty("level", is(oldvalue + 1)));
 	}
 
 	@Test
-	public void testTakeDamage()throws Exception {
+	public void testTakeDamage() throws Exception {
 		int oldHp = hero.getHp();
 		hero.takeDamage(10);
 		assertThat(hero, hasProperty("hp", is(oldHp - 10)));
@@ -63,6 +64,7 @@ public class HeroTest {
 
 	@Test
 	public void testHeroProperties() throws Exception {
+		System.out.println("Avant le démarrage");
 		//assertThat(hero, hasProperty("name"));
         assertThat(hero, hasProperty("name", is("Revali & Daruk")));
 		assertThat(hero, hasProperty("level", is(1)));
@@ -76,7 +78,15 @@ public class HeroTest {
 		int oldHp = enemy.getHp();
 		hero.attack(enemy);
 		int newHp = enemy.getHp();
-		assertThat(3, is(lessThan(2)));
+		assertThat(newHp, is(lessThan(oldHp)));
 	}
 
+	/*public static void main(String []args) {
+		HeroTest hero = new	HeroTest();
+
+		hero.testAttack();
+
+	}*/
+
 }
+
