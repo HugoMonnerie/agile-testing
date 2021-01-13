@@ -1,7 +1,7 @@
 Feature: Fonctionnalité du configurateur.
 
     Scenario: Vérification du bouton commander
-        Given je suis sur "https://www.tesla.com/fr_fr/models"
+        Given je suis sur "https://www.tesla.com/fr_FR/models"
         When j'appuie sur le bouton Commander
         Then le bouton nous renvoie vers "https://www.tesla.com/fr_FR/models/design"
 

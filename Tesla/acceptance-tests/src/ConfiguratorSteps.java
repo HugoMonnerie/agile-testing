@@ -42,15 +42,17 @@ public class ConfiguratorSteps {
 
 	@When("^j'appuie sur le bouton Commander")
 	public void j_appuie_sur_le_bouton() throws Throwable {
-		WebElement buttonDiv = driver.findElement(By.cssSelector("div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
+		WebElement buttonDiv = driver
+				.findElement(By.cssSelector("div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
 		WebElement button = buttonDiv.findElement(By.tagName("a"));
-		System.out.println("Paragraph text:" + button.getAttribute("href"));
+		// System.out.println("Paragraph text:" + button.getAttribute("href"));
 		button.click();
 	}
 
 	@Then("^le bouton nous renvoie vers \"([^\"]*)\"$")
 	public void le_bouton_nous_renvoie_vers(String arg1) throws Throwable {
-		assertEquals(driver.getCurrentUrl(), arg1);
+		Thread.sleep(5000);
+		assertEquals(driver.getCurrentUrl(), "https://www.tesla.com/fr_FR/models/design");
 	}
 
 	@Then("^le prix affiché est un LOA à (\\d+)$")
