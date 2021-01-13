@@ -40,22 +40,17 @@ public class ConfiguratorSteps {
 		driver.get(arg1);
 	}
 
-	@Then("^le bouton doit avoir le text \"([^\"]*)\"$")
-	public void le_bouton_doit_avoir_le_text(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
-	}
-
-	@When("^j'appuie sur le bouton \"([^\"]*)\"$")
-	public void j_appuie_sur_le_bouton(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+	@When("^j'appuie sur le bouton Commander")
+	public void j_appuie_sur_le_bouton() throws Throwable {
+		WebElement buttonDiv = driver.findElement(By.cssSelector("div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
+		WebElement button = buttonDiv.findElement(By.tagName("a"));
+		System.out.println("Paragraph text:" + button.getAttribute("href"));
+		button.click();
 	}
 
 	@Then("^le bouton nous renvoie vers \"([^\"]*)\"$")
 	public void le_bouton_nous_renvoie_vers(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		assertEquals(driver.getCurrentUrl(), arg1);
 	}
 
 	@Then("^le prix affiché est un LOA à (\\d+)$")

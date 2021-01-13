@@ -2,8 +2,7 @@ Feature: Fonctionnalité du configurateur.
 
     Scenario: Vérification du bouton commander
         Given je suis sur "https://www.tesla.com/fr_fr/models"
-        Then le bouton doit avoir le text "commander"
-        When j'appuie sur le bouton "commander" 
+        When j'appuie sur le bouton Commander
         Then le bouton nous renvoie vers "https://www.tesla.com/fr_FR/models/design"
 
     Scenario: Vérification du prix LOA
