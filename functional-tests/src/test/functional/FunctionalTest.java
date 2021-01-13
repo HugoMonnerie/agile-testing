@@ -30,7 +30,7 @@ public class FunctionalTest {
     }
 
     // Test de la Story #1-homepage (https://trello.com/c/WKTneu9o/1-homepage)
-    @Test
+    /*@Test
     public void testHomepage() throws Exception {
         driver.get("https://www.meetup.com/fr-FR/");
         assertEquals(driver.getTitle(), "Partagez vos passions | Meetup");
@@ -38,11 +38,29 @@ public class FunctionalTest {
         WebElement h1 = driver.findElement(By.tagName("h1"));
         assertEquals(h1.getText(), "Le monde vous tend les bras");
 
-        
-        assertEquals(.get(), "Rejoignez un groupe local pour rencontrer du monde, tester une nouvelle activité ou partager vos passions.");
-        // TODO
-        // To Be Completed By Coders From Coding Factory
+        WebElement psoutitre = driver.findElement(By.className("exploreHome-hero-subTitle"));
+        WebElement spansoutitre = psoutitre.findElement(By.tagName("span"));
+        assertEquals(spansoutitre.getText(), "Rejoignez un groupe local pour rencontrer du monde, tester une nouvelle activité ou partager vos passions.");
+
+        WebElement buttonRed = driver.findElement(By.className("button--primary"));
+        assertEquals(buttonRed.getText(), "Rejoindre Meetup");
+        assertEquals(buttonRed.getAttribute("href"), "https://www.meetup.com/fr-FR/register/");
     }
+     */
+
+    @Test
+    public void testRecherche() throws Exception {
+        driver.get("https://www.meetup.com/fr-FR/find/outdoors-adventure/");
+        assertThat(driver.getTitle().toLowerCase() ,containsString("Nature et Aventure".toLowerCase()));
+        WebElement h1 = driver.findElement(By.tagName("h1"));
+        assertThat(h1.getText().toLowerCase() ,containsString("Nature et Aventure".toLowerCase()));
+
+        WebElement seachform = driver.findElement(By.id("searchForm"));
+        
+
+    }
+
+
 
     // Test de la Story n ...
     // TODO
