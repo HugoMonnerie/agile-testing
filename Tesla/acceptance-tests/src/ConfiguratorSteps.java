@@ -22,12 +22,15 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
 import org.openqa.selenium.Keys;
 
 public class ConfiguratorSteps {
 
 	public static WebDriver driver;
+
+	private int priceOptionAutopilot = 0;
 
 	@Before
 	public void beforeScenario() {
@@ -100,7 +103,7 @@ public class ConfiguratorSteps {
 		closeButton.click();
 		assertEquals(totalStr, arg4);
 	}
-	
+
 	@When("^j'appuie sur \"([^\"]*)\"$")
 	public void j_appuie_sur(String arg1) throws Throwable {
 		WebElement divButtons = driver.findElement(By.cssSelector("div.child-group--option_details"));
@@ -111,6 +114,86 @@ public class ConfiguratorSteps {
 			}
 		}
 	}
+
+	@When("^j'appuie sur le logo$")
+	public void j_appuie_sur_le_logo() throws Throwable {
+		WebElement logo = driver.findElement(By.cssSelector("a.tsla-header-main--logo.tds-icon.tds-icon-wordmark"));
+		logo.click();
+		Thread.sleep(1000);
+	}
+
+	@When("^je click sur le lien \"([^\"]*)\"$")
+	public void je_click_sur_le_lien(String arg1) throws Throwable {
+
+		Thread.sleep(2000);
+
+		List<WebElement> listLocations = driver.findElements(By.cssSelector("a.region-link.notranslate"));
+		for (WebElement element : listLocations) {
+			//System.out.println("Paragraph text:" + element.getText());
+
+			if(element.getText().contains("France")) {
+				//System.out.println("//////////////////////////////////////////////////////////");
+				element.click();
+				break;
+			}
+		}
+
+		Thread.sleep(2000);
+
+
+		JavascriptExecutor js = ((JavascriptExecutor) driver);
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+		Thread.sleep(2000);
+
+		List<WebElement> listLinks = driver.findElements(By.cssSelector("a.tds-footer-list_link.tds-link"));
+		WebElement locationLink = listLinks.get(6);
+		locationLink.click();
+		Thread.sleep(1000);
+
+	}
+
+	@Then("^je me retrouve sur la page \"([^\"]*)\"$")
+	public void je_me_retrouve_sur_la_page(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
+	}
+
+	@When("^je vais dans l'onglet \"([^\"]*)\"$")
+	public void je_vais_dans_l_onglet(String arg1) throws Throwable {
+		// WebElement h2 = driver.findElement(By.tagName("h2"));
+		// assertThat(h2.getText().toLowerCase(), containsString(arg1.toLowerCase()));
+
+		WebElement divButtons = driver.findElement(By.cssSelector("div.package-options--nav"));
+		List<WebElement> buttons = divButtons.findElements(By.cssSelector("li.packages-options--nav-item"));
+		for (WebElement element : buttons) {
+			if (element.getText().toLowerCase().contains(arg1.toLowerCase())) {
+				element.click();
+				break;
+			}
+		}
+	}
+
+	@When("^je click sur \"([^\"]*)\"$")
+	public void je_click_sur(String arg1) throws Throwable {
+		WebElement buttonDiv = driver
+				.findElement(By.cssSelector("i.icon-checkbox.option-checkbox--icon.icon-checkbox--blue"));
+		WebElement pPrice = driver
+				.findElement(By.cssSelector("p.finance-item--price.finance-item--price-before-savings"));
+		String justPrice = pPrice.getText().split(" ")[3];
+		this.priceOptionAutopilot = Integer.parseInt(justPrice);
+		buttonDiv.click();
+	}
+
+	@Then("^Le prix augente de \"([^\"]*)\" € /mois$")
+	public void le_prix_augente_de_€_mois(String arg1) throws Throwable {
+		WebElement pPrice = driver
+				.findElement(By.cssSelector("p.finance-item--price.finance-item--price-before-savings"));
+		String justPrice = pPrice.getText().split(" ")[3];
+		int pricePlus = Integer.parseInt(justPrice);
+		assertEquals(pricePlus - this.priceOptionAutopilot, Integer.parseInt(arg1));
+
+	}
+
 
 	@After
 	public void afterScenario() {
