@@ -1,4 +1,4 @@
-Feature: Fonctionnalité du configurateur.
+#Feature: Fonctionnalité du configurateur.
 
     #Scenario: Vérification du bouton commander
     #    Given je suis sur "https://www.tesla.com/fr_FR/models"

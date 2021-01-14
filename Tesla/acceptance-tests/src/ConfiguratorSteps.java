@@ -195,6 +195,24 @@ public class ConfiguratorSteps {
 		assertEquals(pricePlus - this.priceOptionAutopilot, Integer.parseInt(arg1));
 	}
 
+	//Events Page
+
+	@When("^je choisi un lieu dans le monde$")
+	public void je_choisi_un_lieu_dans_le_monde() throws Throwable {
+		WebElement submitLocation = driver.findElement(By.cssSelector("input#edit-loupe"));
+		submitLocation.click();
+		Thread.sleep(500);
+	}
+
+	@Then("^La page contient les \"([^\"]*)\" prochains evenements autour de chez moi$")
+	public void la_page_contient_les_prochains_evenements_autour_de_chez_moi(String arg1) throws Throwable {
+		List<WebElements> listEvents = driver.findElements(By.cssSelector("div.node.node-event.node-teaser.clearfix"));
+		
+		// Write code here that turns the phrase above into concrete actions
+		throw new PendingException();
+	}
+
+
 	@After
 	public void afterScenario() {
 		driver.quit();
