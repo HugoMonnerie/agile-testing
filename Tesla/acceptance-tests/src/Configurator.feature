@@ -15,3 +15,12 @@ Feature: Fonctionnalité du configurateur.
         Then le prix affiché est un "LOA" à "768 € /mois" et "108 € /mois" d'économies de carburant et un total de "94 841 €"
         When j'appuie sur "Performance"
         Then le prix affiché est un "LOA" à "969 € /mois" et "108 € /mois" d'économies de carburant et un total de "114 052 €"
+
+    Scenario:
+        Given je suis sur "https://www.tesla.com/fr_FR/models/design"
+        When je vais dans l'onglet "Pilotage Automatique"
+        When je click sur "Ajouter cette option"
+        Then Le prix augente de "89" € /mois
+
+
+
