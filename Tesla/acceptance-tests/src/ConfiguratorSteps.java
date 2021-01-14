@@ -395,4 +395,27 @@ public class ConfiguratorSteps {
 	public void afterScenario() {
 		driver.quit();
 	}
+
+	/*@When("^je choisis \"([^\"]*)\"$")
+	public void je_choisis(String arg1) throws Throwable {
+		WebElement inputLocation = driver.findElement(By.cssSelector("input#edit-geoautocomplete"));
+		Thread.sleep(500);
+		inputLocation.sendKeys(arg1);
+		Thread.sleep(500);
+		inputLocation.sendKeys(Keys.ENTER);
+		Thread.sleep(500);
+		WebElement submitLocation = driver.findElement(By.cssSelector("input#edit-loupe"));
+		submitLocation.click();
+		Thread.sleep(5000);
+	}
+	 */
+
+	@Then("^le premier évenement se situe au \"([^\"]*)\"$")
+	public void le_premier_evenement_se_situe_au(String arg1) throws Throwable {
+		List<WebElement> location = driver.findElements(By.cssSelector("div.location-teaser"));
+		Thread.sleep(500);
+
+		assertEquals(location.get(0).getText(), arg1);
+	}
+
 }

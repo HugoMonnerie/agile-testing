@@ -40,3 +40,8 @@ Feature: Fonctionnalité de la page d'évènements
     #    When je fais une recherche pour le lieu "Japon"
     #    And Je click sur le lien de l'inscription de cet évenement
     #    Then je me retrouve sur l'url' "https://auth.tesla.com/"
+
+    Scenario:
+        Given je suis sur "https://www.tesla.com/fr_FR/events"
+        When je fais une recherche pour le lieu "Londres, Royaume-Uni"
+        Then le premier évenement se situe au "Royaume-Uni"
