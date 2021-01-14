@@ -22,6 +22,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.By;
 
+import org.openqa.selenium.Keys;
+
 public class ConfiguratorSteps {
 
 	public static WebDriver driver;
@@ -40,25 +42,46 @@ public class ConfiguratorSteps {
 		driver.get(arg1);
 	}
 
+
+	/*
 	@When("^j'appuie sur le bouton Commander")
 	public void j_appuie_sur_le_bouton() throws Throwable {
-		WebElement buttonDiv = driver
-				.findElement(By.cssSelector("div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
+		WebElement buttonDiv = driver.findElement(By.cssSelector("div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
 		WebElement button = buttonDiv.findElement(By.tagName("a"));
+		//Thread.sleep(5000);
 		// System.out.println("Paragraph text:" + button.getAttribute("href"));
+
 		button.click();
+		driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"\t");
 	}
+
+	 */
 
 	@Then("^le bouton nous renvoie vers \"([^\"]*)\"$")
 	public void le_bouton_nous_renvoie_vers(String arg1) throws Throwable {
 		Thread.sleep(5000);
-		assertEquals(driver.getCurrentUrl(), "https://www.tesla.com/fr_FR/models/design");
+		WebElement buttonDiv = driver.findElement(By.cssSelector("div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
+		WebElement button = buttonDiv.findElement(By.tagName("a"));
+		assertEquals(button.getAttribute("href").toLowerCase(),arg1.toLowerCase());
 	}
 
-	@Then("^le prix affiché est un LOA à (\\d+)$")
-	public void le_prix_affiché_est_un_LOA_à(int arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+
+	@Then("^le prix affiché est un \\\"([^\\\"]*)\\\" à \\\"([^\\\"]*)\\\"")
+	public void le_prix_affiché_est_un_à(String arg1, String arg2) throws Throwable {
+		WebElement divType = driver.findElement(By.cssSelector("div.financetype-selector--button"));
+		assertEquals(divType.getText(), arg1);
+		WebElement pPrice = driver.findElement(By.cssSelector("p.finance-item--price.finance-item--price-before-savings"));
+		assertThat(pPrice.getText(), containsString(arg2));
+	}
+
+	@When("^j'appuie sur \"([^\"]*)\"$")
+	public void j_appuie_sur(String arg1) throws Throwable {
+		WebElement divButtons = driver.findElement(By.cssSelector("div.child-group--option_details"));
+		List<WebElement> buttons = divButtons.findElements(By.cssSelector("div.group--options_block.m3-animate--all"));
+		for (WebElement element : buttons) {
+			System.out.println("Paragraph text:" + element.getText());
+		}
+		//throw new PendingException();
 	}
 
 	@After
