@@ -2,7 +2,7 @@
 
     #Scenario: Vérification du bouton commander
     #    Given je suis sur "https://www.tesla.com/fr_FR/models"
-    #    #When j'appuie sur le bouton Commander
+    #    When j'appuie sur le bouton Commander
     #    Then le bouton nous renvoie vers "https://www.tesla.com/fr_FR/models/design"
 
     #Scenario: Vérification du prix LOA
@@ -27,3 +27,17 @@
     #    When j'appuie sur le logo
     #    And je click sur le lien "Localisations"
     #    Then je me retrouve sur la page "https://www.tesla.com/fr_FR/findus/list"
+
+    #Scenario Outline:
+    #Given je suis sur "https://www.tesla.com/fr_FR/model3"
+    #When je vais dans les caractéristiques
+    #And je choisis le modèle "<Gamme>"
+    #Then le "Poids" est de "<Poids>"
+    #And le "Accélération" est de "<Accélération>"
+    #And le "Autonomie" est de "<autonomie>"
+
+    #Examples:
+    #| Gamme                 | Poids     | Accélération | autonomie  |
+    #| Performance           | 1,844 kg  | 3,3 secondes | 567 km     |
+    #| Grande Autonomie AWD  | 1,844 kg  | 4,4 secondes | 580 km     |
+    #| Standard Plus         | 1,745 kg  | 5,6 secondes | 430 km     |
