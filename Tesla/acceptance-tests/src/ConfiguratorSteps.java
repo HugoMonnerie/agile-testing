@@ -25,7 +25,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 
-
 import org.openqa.selenium.Keys;
 
 public class ConfiguratorSteps {
@@ -220,7 +219,6 @@ public class ConfiguratorSteps {
 	public void il_ya_un_lien_pour_voir_plus_de_évenements(int arg1) throws Throwable {
 		WebElement seeAll = driver.findElement(By.cssSelector("li.pager-next.first.last"));
 		assertEquals(seeAll.getText().toLowerCase(), "Afficher plus".toLowerCase());
-
 	}
 
 	@Then("^je peut remplir un formulaire pour rester informé$")
@@ -330,8 +328,36 @@ public class ConfiguratorSteps {
 		}
 	}
 
+	@When("^je fais une recherche pour le lieu \"([^\"]*)\"$")
+	public void je_fais_une_recherche_pour_le_lieu(String arg1) throws Throwable {
+		WebElement inputPlace = driver.findElement(By.cssSelector("input#edit-geoautocomplete"));
+		Thread.sleep(1000);
+		//inputPlace.sendKeys(Keys.CONTROL + "a");
+		inputPlace.clear();
+		inputPlace.sendKeys(arg1);
+		Thread.sleep(500);
+		inputPlace.sendKeys(Keys.ENTER);
+		Thread.sleep(500);
+		WebElement submitButton = driver.findElement(By.cssSelector("input#edit-loupe"));
+		submitButton.click();
+		Thread.sleep(7000);
+	}
 
 
+	@When("^Je click sur le lien de l'inscription de cet évenement$")
+	public void je_click_sur_le_lien_de_l_inscription_de_cet_évenement() throws Throwable {
+		List<WebElement> listEvents = driver.findElements(By.cssSelector("div.node.node-event.node-teaser.clearfix"));
+		WebElement eventDiv = listEvents.get(1);
+		WebElement eventLink = eventDiv.findElement(By.tagName("a"));
+		eventLink.click();
+		Thread.sleep(3000);
+	}
+
+	@Then("^je me retrouve sur l'url' \"([^\"]*)\"$")
+	public void je_me_retrouve_sur_l_url(String arg1) throws Throwable {
+		assertThat(driver.getCurrentUrl(), containsString(arg1));
+	}
+	
 	@After
 	public void afterScenario() {
 		driver.quit();
