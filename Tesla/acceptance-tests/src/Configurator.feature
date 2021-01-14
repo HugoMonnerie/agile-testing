@@ -22,8 +22,8 @@ Feature: Fonctionnalité du configurateur.
     #    When je click sur "Ajouter cette option"
     #    Then Le prix augente de "89" € /mois
 
-    Scenario: Liste des localisations de vente
-        Given je suis sur "https://www.tesla.com/fr_fr/models/design#battery"
-        When j'appuie sur le logo
-        And je click sur le lien "Localisations"
-        Then je me retrouve sur la page "https://www.tesla.com/fr_FR/findus/list"
+    #Scenario: Liste des localisations de vente
+    #    Given je suis sur "https://www.tesla.com/fr_fr/models/design#battery"
+    #    When j'appuie sur le logo
+    #    And je click sur le lien "Localisations"
+    #    Then je me retrouve sur la page "https://www.tesla.com/fr_FR/findus/list"
