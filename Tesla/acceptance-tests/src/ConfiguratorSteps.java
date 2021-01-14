@@ -119,43 +119,44 @@ public class ConfiguratorSteps {
 	public void j_appuie_sur_le_logo() throws Throwable {
 		WebElement logo = driver.findElement(By.cssSelector("a.tsla-header-main--logo.tds-icon.tds-icon-wordmark"));
 		logo.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 	}
 
-	@When("^je click sur le lien \"([^\"]*)\"$")
+	@When("^je click sur le lien \"([^\"]*)\"$") //Scroll à faire soi même
 	public void je_click_sur_le_lien(String arg1) throws Throwable {
 
-		Thread.sleep(2000);
+		Thread.sleep(500);
 
 		List<WebElement> listLocations = driver.findElements(By.cssSelector("a.region-link.notranslate"));
 		for (WebElement element : listLocations) {
 			//System.out.println("Paragraph text:" + element.getText());
-
 			if(element.getText().contains("France")) {
-				//System.out.println("//////////////////////////////////////////////////////////");
 				element.click();
 				break;
 			}
 		}
 
-		Thread.sleep(2000);
-
-
-		JavascriptExecutor js = ((JavascriptExecutor) driver);
-		js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
-		Thread.sleep(2000);
-
+		Thread.sleep(7000);
+		/*
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebElement footer = driver.findElement(By.tagName("footer"));
+		js.executeScript("arguments[0].scrollIntoView(false);", footer);
+		//driver.executeScript("arguments[0].scrollIntoView(false);", footer);
+		 */
 		List<WebElement> listLinks = driver.findElements(By.cssSelector("a.tds-footer-list_link.tds-link"));
 		WebElement locationLink = listLinks.get(6);
-		locationLink.click();
-		Thread.sleep(1000);
+		//WebElement lastElement = driver.findElement(By.tagName("footer"));
+		int y = locationLink.getLocation().getY();
+		JavascriptExecutor js = (JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0,"+y+")");
 
+		locationLink.click();
+		Thread.sleep(500);
 	}
 
 	@Then("^je me retrouve sur la page \"([^\"]*)\"$")
 	public void je_me_retrouve_sur_la_page(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		throw new PendingException();
+		assertEquals(driver.getCurrentUrl(), arg1);
 	}
 
 	@When("^je vais dans l'onglet \"([^\"]*)\"$")
@@ -191,9 +192,7 @@ public class ConfiguratorSteps {
 		String justPrice = pPrice.getText().split(" ")[3];
 		int pricePlus = Integer.parseInt(justPrice);
 		assertEquals(pricePlus - this.priceOptionAutopilot, Integer.parseInt(arg1));
-
 	}
-
 
 	@After
 	public void afterScenario() {
