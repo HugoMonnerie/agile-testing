@@ -357,13 +357,42 @@ public class ConfiguratorSteps {
 	public void je_me_retrouve_sur_l_url(String arg1) throws Throwable {
 		assertThat(driver.getCurrentUrl(), containsString(arg1));
 	}
-	
+
+	@When("^j'ouvre le burger menu$")
+	public void j_ouvre_le_burger_menu() throws Throwable {
+		WebElement logo = driver.findElement(By.cssSelector("span.tds-menu-header-main--trigger_icon"));
+		logo.click();
+		System.out.println("test");
+	}
+
+	@When("^je click sur le bouton \"([^\"]*)\"$")
+	public void je_click_sur_le_bouton(String arg1) throws Throwable {
+		WebElement path = driver
+				.findElement(By.xpath("/html/body/div[1]/div/header/div/div/nav/div[1]/nav[1]/ol/li[10]/a"));
+		try {
+			Thread.sleep(3000);
+			Actions action = new Actions(driver);
+			action.click(path);
+			action.build().perform();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Then("^je me retrouve sur \"([^\"]*)\"$")
+	public void je_me_retrouve_sur(String arg1) throws Throwable {
+		try {
+			Thread.sleep(2000);
+			assertEquals(driver.getCurrentUrl(), arg1);
+
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@After
 	public void afterScenario() {
 		driver.quit();
 	}
 }
-
-
-//Actions action = new Actions(driver);
-//action.click(seeAll); action.build().perform();
