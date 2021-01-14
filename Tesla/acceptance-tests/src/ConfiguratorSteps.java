@@ -1,6 +1,7 @@
 package test.acceptance;
 
 import java.util.concurrent.TimeUnit;
+import java.util.List;
 
 import java.lang.*;
 
@@ -74,14 +75,41 @@ public class ConfiguratorSteps {
 		assertThat(pPrice.getText(), containsString(arg2));
 	}
 
+	@Then("^le prix devient un \"([^\"]*)\" à \"([^\"]*)\" et \"([^\"]*)\" d'économies de carburant et un total de \"([^\"]*)\"$")
+	public void le_prix_devient_un_à_et_d_économies_de_carburant_et_un_total_de(String arg1, String arg2, String arg3, String arg4) throws Throwable {
+
+		WebElement divType = driver.findElement(By.cssSelector("div.financetype-selector--button"));
+		assertEquals(divType.getText(), arg1);
+
+		WebElement seeMore = driver.findElement(By.cssSelector("a.finance-content--modal"));
+		seeMore.click();
+
+		List<WebElement> spansInfos = driver.findElements(By.cssSelector("span.line-item--value"));
+		WebElement spanLoyer = spansInfos.get(0);
+		assertThat(spanLoyer.getText(), containsString(arg2));
+		WebElement spanEconomie = spansInfos.get(1);
+		assertThat(spanEconomie.getText(), containsString(arg3));
+
+		WebElement total = driver.findElement(By.cssSelector("input#totalLeaseAmount"));
+		String totalStr = total.getAttribute("value");
+
+		WebElement spanClose = driver.findElement(By.cssSelector("span.modal-content--close"));
+		WebElement closeButton = spanClose.findElement(By.cssSelector("i.icon-close"));
+
+		//driver.switchTo().defaultContent();
+		closeButton.click();
+		assertEquals(totalStr, arg4);
+	}
+	
 	@When("^j'appuie sur \"([^\"]*)\"$")
 	public void j_appuie_sur(String arg1) throws Throwable {
 		WebElement divButtons = driver.findElement(By.cssSelector("div.child-group--option_details"));
-		List<WebElement> buttons = divButtons.findElements(By.cssSelector("div.group--options_block.m3-animate--all"));
+		List<WebElement> buttons = divButtons.findElements(By.cssSelector("div.group--options_block--container"));
 		for (WebElement element : buttons) {
-			System.out.println("Paragraph text:" + element.getText());
+			if(element.getText().contains(arg1)) {
+				element.click();
+			}
 		}
-		//throw new PendingException();
 	}
 
 	@After
