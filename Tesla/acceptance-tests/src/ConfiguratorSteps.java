@@ -418,4 +418,113 @@ public class ConfiguratorSteps {
 		assertEquals(location.get(0).getText(), arg1);
 	}
 
+	//Homepage
+
+	@Given("^je suis sur la homepage$")
+	public void je_suis_sur_la_homepage() throws Throwable {
+		driver.get("https://www.tesla.com/fr_fr");
+	}
+
+	@Then("^le titre doit être \"([^\"]*)\"$")
+	public void le_titre_doit_être(String arg1) throws Throwable {
+		assertEquals(driver.getTitle(), arg1);
+	}
+
+	@Then("^la description doit être \"([^\"]*)\"$")
+	public void la_description_doit_être(String arg1) throws Throwable {
+		// By CSS Selector
+		assertTrue(
+				driver.findElement(By.cssSelector("meta[name='description']")).getAttribute("content").contains(arg1));
+		// By XPATH, si vous préférez...
+		// assertEquals(driver.findElement(By.xpath("//meta[@name='description']")).getAttribute("content"),
+		// arg1);
+	}
+
+	@Then("^la 1ère punchline doit être \"([^\"]*)\"$")
+	public void la_1ère_punchline_doit_être(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		//WebElement h1 = driver.findElement(By.tagName("h1"));
+		//WebElement punch = driver.findElement(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
+		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
+		for (WebElement element : elements) {
+			assertThat(element.getText(), containsString(arg1));
+		}
+	}
+	@Then("^la 2ème punchline doit être \"([^\"]*)\"$")
+	public void la_2ème_punchline_doit_être(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
+		for (WebElement element : elements) {
+			assertThat(element.getText(), containsString(arg1));
+		}
+
+	}
+	@Then("^la 3ème punchline doit être \"([^\"]*)\"$")
+	public void la_3ème_punchline_doit_être(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
+		for (WebElement element : elements) {
+			assertThat(element.getText(), containsString(arg1));
+		}
+	}
+	@Then("^la 4ème punchline doit être \"([^\"]*)\"$")
+	public void la_4ème_punchline_doit_être(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
+		for (WebElement element : elements) {
+			assertThat(element.getText(), containsString(arg1));
+		}
+	}
+	@Then("^la 5ème punchline doit être \"([^\"]*)\"$")
+	public void la_5ème_punchline_doit_être(String arg1) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
+		for (WebElement element : elements) {
+			assertThat(element.getText(), containsString(arg1));
+		}
+	}
+
+	@Then("^le titre est \"([^\"]*)\"$")
+	public void le_titre_est(String arg1) throws Throwable {
+		WebElement nav = driver.findElement(By.className("tds-menu-header-nav--list"));
+		List<WebElement> elementA = nav.findElements(By.tagName("a"));
+		for (WebElement e : elementA) {
+			if (e.getText().equals(arg1)) {
+				assertEquals(arg1, e.getText());
+			}
+		}
+	}
+
+	@Then("^le lien associé à \"([^\"]*)\" est \"([^\"]*)\"$")
+	public void le_lien_associé_à_est(String arg1, String arg2) throws Throwable {
+		WebElement nav = driver.findElement(By.className("tds-menu-header-nav--list"));
+		List<WebElement> elementA = nav.findElements(By.tagName("a"));
+		for (WebElement e : elementA) {
+			if (e.getText().equals(arg1)) {
+				assertEquals(arg2, e.getAttribute("href"));
+			}
+		}
+	}
+
+	@Then("^les noms des liens du burger menu doivent être \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\", \"([^\"]*)\"$")
+	public void les_noms_des_liens_du_burger_menu_doivent_être(String arg0, String arg1, String arg2, String arg3, String arg4, String arg5, String arg6, String arg7, String arg8, String arg9, String arg10) throws Throwable {
+		// Write code here that turns the phrase above into concrete actions
+		WebElement burger = driver.findElement(By.id("block-hamburgerdesktop"));
+		Actions action = new Actions(driver);
+		WebElement burgerClick = driver.findElement(By.className("tds-menu-header-main--trigger_icon--placeholder"));
+		action.click(burgerClick);
+		action.build().perform();
+		Thread.sleep(1000);
+		List<WebElement> elements = driver.findElements(By.cssSelector("a.tds-menu-header-nav--list_link"));
+		String[] buttons = {arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10};
+		for (var i = 0; i < 11; i++){
+			for (WebElement e: elements){
+				if (e.getText().equals(buttons[i])){
+					assertEquals(e.getText(),buttons[i]);
+				}
+			}
+		}
+	}
+
+
 }
