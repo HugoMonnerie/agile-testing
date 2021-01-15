@@ -52,7 +52,7 @@ public class ConfiguratorSteps {
 	j_appuie_sur_le_bouton() throws Throwable { WebElement buttonDiv = driver.findElement(By.cssSelector(
 			"div.hero-callouts--button.cmp-animate--to_reveal.cmp-animate--revealed"));
 	WebElement button = buttonDiv.findElement(By.tagName("a"));
-	//Thread.sleep(5000); // System.out.println("Paragraph text:" +button.getAttribute("href"));
+	//Thread.sleep(5000);
 	button.click();
 	driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"\t"); }
 
@@ -128,7 +128,6 @@ public class ConfiguratorSteps {
 
 		List<WebElement> listLocations = driver.findElements(By.cssSelector("a.region-link.notranslate"));
 		for (WebElement element : listLocations) {
-			// System.out.println("Paragraph text:" + element.getText());
 			if (element.getText().contains("France")) {
 				element.click();
 				break;
@@ -233,7 +232,6 @@ public class ConfiguratorSteps {
 		List<WebElement> listInputs = form.findElements(By.cssSelector("div.form-item.tds-form-item"));
 		for (WebElement element : listInputs) {
 			WebElement label = element.findElement(By.tagName("label"));
-			System.out.println(label.getText());
 		}
 		WebElement label = listInputs.get(Integer.parseInt(arg1)-1).findElement(By.tagName("label"));
 		assertThat(label.getText().toLowerCase(), containsString(arg2.toLowerCase()));
@@ -254,9 +252,7 @@ public class ConfiguratorSteps {
 		List<WebElement> listInputs = form.findElements(By.cssSelector("div.form-item.tds-form-item")); //.form-type-textfield
 		for (WebElement element : listInputs) {
 			WebElement label = element.findElement(By.tagName("label"));
-			System.out.println(label.getText());
 			if(!label.getText().equals("E-mail *") && !label.getText().equals("Region*") && !label.getText().equals("Recevoir les News Tesla") ) {
-				System.out.println(label.getText());
 				WebElement input = element.findElement(By.tagName("input"));
 				input.sendKeys("66666");
 			}
@@ -295,7 +291,6 @@ public class ConfiguratorSteps {
 		List<WebElement> listButtons = driver.findElements(By.cssSelector("a.tds-tab.tcl-tab.tcl-tab--pill"));
 
 		for (WebElement element : listButtons) {
-			System.out.println(element.getText());
 			if (element.getText().toLowerCase().contains(arg1.toLowerCase())) {
 				element.click();
 				break;
@@ -313,7 +308,6 @@ public class ConfiguratorSteps {
 			WebElement label = element.findElement(By.cssSelector("span.tds-list-item_title"));
 
 			if (label.getText().contains(arg1)) {
-				System.out.println(arg1);
 				if(arg1.equals("Accélération")) {
 					assertThat(element.getText(), containsString(arg2));
 				}
@@ -332,7 +326,6 @@ public class ConfiguratorSteps {
 	public void je_fais_une_recherche_pour_le_lieu(String arg1) throws Throwable {
 		WebElement inputPlace = driver.findElement(By.cssSelector("input#edit-geoautocomplete"));
 		Thread.sleep(1000);
-		//inputPlace.sendKeys(Keys.CONTROL + "a");
 		inputPlace.clear();
 		inputPlace.sendKeys(arg1);
 		Thread.sleep(500);
@@ -362,7 +355,6 @@ public class ConfiguratorSteps {
 	public void j_ouvre_le_burger_menu() throws Throwable {
 		WebElement logo = driver.findElement(By.cssSelector("span.tds-menu-header-main--trigger_icon"));
 		logo.click();
-		System.out.println("test");
 	}
 
 	@When("^je click sur le bouton \"([^\"]*)\"$")
@@ -432,7 +424,6 @@ public class ConfiguratorSteps {
 
 	@Then("^la description doit être \"([^\"]*)\"$")
 	public void la_description_doit_être(String arg1) throws Throwable {
-		// By CSS Selector
 		assertTrue(
 				driver.findElement(By.cssSelector("meta[name='description']")).getAttribute("content").contains(arg1));
 		// By XPATH, si vous préférez...
@@ -442,7 +433,6 @@ public class ConfiguratorSteps {
 
 	@Then("^la 1ère punchline doit être \"([^\"]*)\"$")
 	public void la_1ère_punchline_doit_être(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		//WebElement h1 = driver.findElement(By.tagName("h1"));
 		//WebElement punch = driver.findElement(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
 		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
@@ -452,7 +442,6 @@ public class ConfiguratorSteps {
 	}
 	@Then("^la 2ème punchline doit être \"([^\"]*)\"$")
 	public void la_2ème_punchline_doit_être(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
 		for (WebElement element : elements) {
 			assertThat(element.getText(), containsString(arg1));
@@ -461,7 +450,6 @@ public class ConfiguratorSteps {
 	}
 	@Then("^la 3ème punchline doit être \"([^\"]*)\"$")
 	public void la_3ème_punchline_doit_être(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
 		for (WebElement element : elements) {
 			assertThat(element.getText(), containsString(arg1));
@@ -469,7 +457,6 @@ public class ConfiguratorSteps {
 	}
 	@Then("^la 4ème punchline doit être \"([^\"]*)\"$")
 	public void la_4ème_punchline_doit_être(String arg1) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
 		List<WebElement> elements = driver.findElements(By.cssSelector("tcl-hero-parallaxheading tcl-hero-parallaxheading-color-black"));
 		for (WebElement element : elements) {
 			assertThat(element.getText(), containsString(arg1));

@@ -10,7 +10,6 @@ Feature: Fonctionnalité de la page d'évènements
         Given je suis sur "https://www.tesla.com/fr_FR/events"
         Given je suis sur "https://www.tesla.com/fr_FR/events"
         When je fais une recherche pour le lieu "Sartrouville, France"
-        #When je choisi un lieu dans le monde
         Then La page contient les "15" prochains evenements autour de chez moi
 
     Scenario: Un lien permet de voir tout les événements
